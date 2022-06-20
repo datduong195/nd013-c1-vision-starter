@@ -1,4 +1,6 @@
 **/data
 **/experiments
 .ipynb_checkpoints
+**/exported/**
+**/*.gif
 __pycache__
