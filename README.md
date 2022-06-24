@@ -141,14 +141,23 @@ python inference_video.py --labelmap_path label_map.pbtxt --model_path experimen
 ## Submission Template
 
 ### Project overview
-This section should contain a brief description of the project and what we are trying to achieve. Why is object detection such an important component of self driving car systems?
+This is Udacity Self Driving Nanodegree Object Detection project, which uses Tensorflow to create ML model to detect objects Cars, Pedestrians and Cyclist in Urban Environment. A sample Waymo dataset contains tfrecords file which will then be modified and split into training, validation and testing sets using "create_splits.py"
+Waymo dataset can be downloaded from this link:https://console.cloud.google.com/storage/browser/waymo_open_dataset_v_1_2_0_individual_files/
 
 ### Set up
-This section should contain a brief description of the steps to follow to run the code for this repository.
+For setting the environment, a remote VM is provided by Udacity with GPU capabilities and utilize CUDA cores for models training process.
+The environment has already installed all of the necessary libraries and tools:
+Python
+Tensorflow
+Numpy
+Pandas
+matplotlib 
 
 ### Dataset
 #### Dataset analysis
-This section should contain a quantitative and qualitative description of the dataset. It should include images, charts and other visualizations.
+With this dataset, rectangular bounding boxes are used and apply to images that contain objects(cars, pedestrians, cyclist). Exploring the dataset,images are taken in multiple places and time as day or night, sunny or rainy.
+<img src="./images/Complex_Cars_Peds.png">
+
 #### Cross validation
 This section should detail the cross validation strategy and justify your approach.
 
@@ -158,3 +167,4 @@ This section should detail the results of the reference experiment. It should in
 
 #### Improve on the reference
 This section should highlight the different strategies you adopted to improve your model. It should contain relevant figures and details of your findings.
+
