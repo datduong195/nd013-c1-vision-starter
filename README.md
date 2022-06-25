@@ -156,15 +156,56 @@ matplotlib
 ### Dataset
 #### Dataset analysis
 With this dataset, rectangular bounding boxes are used and apply to images that contain objects(cars, pedestrians, cyclist). Exploring the dataset,images are taken in multiple places and time as day or night, sunny or rainy.
-<img src="./images/Complex_Cars_Peds.png">
+![](images/Blurry_Dark_Cars.png)
+![](images/Complex_Cars_Peds.png)
+
+As can be seen in above images, sample images are embedded with color coded bounding boxes in red, blue and green associated with Cars, pedestrians and cyclist.
+By using Exploratory Data Analysis notebook, it can be noticed that there are large samples of cars and pedestrians while it's quite small size for cyclist. It might be an issue for training process and could cause the model to be overfitting, this will be discussed in later sections.
+Here are the distribution for each labels in 5000 randoms images:
+![](images/ObjectCounts.png)
+
+***Distribution of Cars***
+![](images/Dist_cars.png)
+The distribution shows around 20000 labels of around 10 cars appeared in the same image.
+
+![](images/Dist_Peds.png)
+It's similar case for pedestrian distribution, less than 10 pedestrians are presented in around 4000 to 8000 labels.
+
+![](images/Dist_Cyclist.png)
+As mentioned above, number of cyclist is significantly lesser than other objects and even in each image.
 
 #### Cross validation
-This section should detail the cross validation strategy and justify your approach.
+To counter the imbalance classes in sample data, 100 tfrecords files are being shuffled and randomly split into training, testing and validation sets. With a ratio 0.8:0.2 for training and validation data to minimize the occurence of overfitting.
 
 ### Training
 #### Reference experiment
-This section should detail the results of the reference experiment. It should includes training metrics and a detailed explanation of the algorithm's performances.
+In this project, Residual network model (RESNET) is recommended to use, and the results can be seen as below:
+
+![](images/Exp_1_Loss.png)
+In this result, training loss is in orange and validation loss is in blue. As predicted, the model got overfitted since a significant error rate during validation phase.
+
+In the other hand, precision and recall graphs show a slow and steady performance increase.
+![Precision](images/Exp_1_Dectect_Precision.png)
+![Recall](images/Exp_1_Dectect_Recall.png)
+
+The results are hard to analyse since remote VM has a limited disk space, so only a small amount of validation set was used.
 
 #### Improve on the reference
-This section should highlight the different strategies you adopted to improve your model. It should contain relevant figures and details of your findings.
+To increase further the model performance, there is a jupyter notebook provided: "Explore Augmentation". There are four types of augmentations: random horizontal flip, random crop, random convert to grey scale and random adjust brightness. These augmentations are configured in :"solutions/exp3/pipeline_new.config". Since sample images are also taken in dark environment so adjust brightness can help to increase the accuracy of object detection.
+Greyscale:
+![](images/Greyscale.png)
+Brightness:
+![](images/Brightness.png)
+
+Here is the result with Augmentation:
+Loss:
+![](images/Exp_3_Loss.png)
+Recall:
+![](images/Exp_3_Dectect_Recall.png)
+Precision:
+![](image/../images/Exp_3_Dectect_Precision.png)
+
+As can be seen in the result with augmentation, there is a significant improvement, training and validation loss gap has been reduced. This is understandable since with augmentation, more sample images are added to the training set, meaning more images for cyclist and pedestrians, minimizing the chances of overfitting. 
+Conclusion, it can be proven that data augmentation is very helpful when there's small sample set for training, and also reduce the imbalances of labels. Further improvements can be done by collecting more data and optimizing the training parameters.
+
 
