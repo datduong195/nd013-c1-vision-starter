@@ -156,9 +156,8 @@ matplotlib
 ### Dataset
 #### Dataset analysis
 With this dataset, rectangular bounding boxes are used and apply to images that contain objects(cars, pedestrians, cyclist). Exploring the dataset,images are taken in multiple places and time as day or night, sunny or rainy.
-![Screenshot](/images/Complex_Cars_Peds.png)
-<img src="file://images/Complex_Cars_Peds.png" alt="alt text" width="200"/>
-<img src="./images/Complex_Cars_Peds.png">
+![Screenshot](https://github.com/datduong195/nd013-c1-vision-starter/blob/master/images/Complex_Cars_Peds.png?raw=true)
+
 #### Cross validation
 This section should detail the cross validation strategy and justify your approach.
 
