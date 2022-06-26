@@ -136,9 +136,6 @@ This should create a new folder `experiments/reference/exported/saved_model`. Yo
 Finally, you can create a video of your model's inferences for any tf record file. To do so, run the following command (modify it to your files):
 ```
 python inference_video.py --labelmap_path label_map.pbtxt --model_path experiments/reference/exported/saved_model --tf_record_path /data/waymo/testing/segment-12200383401366682847_2552_140_2572_140_with_camera_labels.tfrecord --config_path experiments/reference/pipeline_new.config --output_path animation.gif
-```
-
-## Submission Template
 
 ### Project overview
 This is Udacity Self Driving Nanodegree Object Detection project, which uses Tensorflow to create ML model to detect objects Cars, Pedestrians and Cyclist in Urban Environment. A sample Waymo dataset contains tfrecords file which will then be modified and split into training, validation and testing sets using "create_splits.py"
@@ -156,22 +153,29 @@ matplotlib
 ### Dataset
 #### Dataset analysis
 With this dataset, rectangular bounding boxes are used and apply to images that contain objects(cars, pedestrians, cyclist). Exploring the dataset,images are taken in multiple places and time as day or night, sunny or rainy.
-![](images/Blurry_Dark_Cars.png)
-![](images/Complex_Cars_Peds.png)
+
+<img width="274" alt="Blurry_Dark_Cars" src="https://user-images.githubusercontent.com/36104217/175806885-033b65fc-b9dd-49f3-8dc5-9fc55c06aa7f.png">
+
+<img width="278" alt="Complex_Cars_Peds" src="https://user-images.githubusercontent.com/36104217/175806891-3a617e6e-9e36-4b80-b285-aec1e3a3af00.png">
 
 As can be seen in above images, sample images are embedded with color coded bounding boxes in red, blue and green associated with Cars, pedestrians and cyclist.
 By using Exploratory Data Analysis notebook, it can be noticed that there are large samples of cars and pedestrians while it's quite small size for cyclist. It might be an issue for training process and could cause the model to be overfitting, this will be discussed in later sections.
 Here are the distribution for each labels in 5000 randoms images:
-![](images/ObjectCounts.png)
+
+<img width="396" alt="ObjectCounts" src="https://user-images.githubusercontent.com/36104217/175806906-10f04dd0-01ae-4e17-a9eb-a2580f732b7c.png">
 
 ***Distribution of Cars***
-![](images/Dist_cars.png)
+
+<img width="364" alt="Dist_cars" src="https://user-images.githubusercontent.com/36104217/175806919-6881e7d7-2cd2-4bff-a321-b7988d326a4a.png">
+
 The distribution shows around 20000 labels of around 10 cars appeared in the same image.
 
-![](images/Dist_Peds.png)
+<img width="367" alt="Dist_Peds" src="https://user-images.githubusercontent.com/36104217/175806925-50f72f5b-c1fe-4a47-bf0b-1feb311ad0ca.png">
+
 It's similar case for pedestrian distribution, less than 10 pedestrians are presented in around 4000 to 8000 labels.
 
-![](images/Dist_Cyclist.png)
+<img width="356" alt="Dist_Cyclist" src="https://user-images.githubusercontent.com/36104217/175806927-857a85b8-cacb-42eb-9f7e-e6047d1fb1d4.png">
+
 As mentioned above, number of cyclist is significantly lesser than other objects and even in each image.
 
 #### Cross validation
@@ -181,29 +185,40 @@ To counter the imbalance classes in sample data, 100 tfrecords files are being s
 #### Reference experiment
 In this project, Residual network model (RESNET) is recommended to use, and the results can be seen as below:
 
-![](images/Exp_1_Loss.png)
+<img width="619" alt="Exp_1_Loss" src="https://user-images.githubusercontent.com/36104217/175806943-1dc9c871-b00c-4656-b7a8-dd6580c41270.png">
+
 In this result, training loss is in orange and validation loss is in blue. As predicted, the model got overfitted since a significant error rate during validation phase.
 
 In the other hand, precision and recall graphs show a slow and steady performance increase.
-![Precision](images/Exp_1_Dectect_Precision.png)
-![Recall](images/Exp_1_Dectect_Recall.png)
+
+<img width="619" alt="Exp_1_Dectect_Precision" src="https://user-images.githubusercontent.com/36104217/175806951-26a2f2fc-7174-409f-b327-aff2ce06c607.png">
+
+<img width="625" alt="Exp_1_Dectect_Recall" src="https://user-images.githubusercontent.com/36104217/175806952-46017075-fd14-4e96-a0bc-0787fcb4ea9e.png">
 
 The results are hard to analyse since remote VM has a limited disk space, so only a small amount of validation set was used.
 
 #### Improve on the reference
 To increase further the model performance, there is a jupyter notebook provided: "Explore Augmentation". There are four types of augmentations: random horizontal flip, random crop, random convert to grey scale and random adjust brightness. These augmentations are configured in :"solutions/exp3/pipeline_new.config". Since sample images are also taken in dark environment so adjust brightness can help to increase the accuracy of object detection.
 Greyscale:
-![](images/Greyscale.png)
+
+<img width="301" alt="Greyscale" src="https://user-images.githubusercontent.com/36104217/175806957-fa4133e1-d283-42dd-a92a-cb99455fad54.png">
+
 Brightness:
-![](images/Brightness.png)
+
+<img width="356" alt="Brightness" src="https://user-images.githubusercontent.com/36104217/175806965-6323d6a7-36a2-4e5f-bb26-619735529e87.png">
 
 Here is the result with Augmentation:
 Loss:
-![](images/Exp_3_Loss.png)
+
+<img width="616" alt="Exp_3_Loss" src="https://user-images.githubusercontent.com/36104217/175806970-04044ab3-26b9-4c07-a358-d93e3d1b945e.png">
+
 Recall:
-![](images/Exp_3_Dectect_Recall.png)
+
+<img width="622" alt="Exp_3_Dectect_Recall" src="https://user-images.githubusercontent.com/36104217/175806972-b49f3c50-6cf5-45b7-8871-351194e58382.png">
+
 Precision:
-![](image/../images/Exp_3_Dectect_Precision.png)
+
+<img width="620" alt="Exp_3_Dectect_Precision" src="https://user-images.githubusercontent.com/36104217/175806977-a690562e-f327-44a5-a2d1-77d5f96e4a75.png">
 
 As can be seen in the result with augmentation, there is a significant improvement, training and validation loss gap has been reduced. This is understandable since with augmentation, more sample images are added to the training set, meaning more images for cyclist and pedestrians, minimizing the chances of overfitting. 
 Conclusion, it can be proven that data augmentation is very helpful when there's small sample set for training, and also reduce the imbalances of labels. Further improvements can be done by collecting more data and optimizing the training parameters.
